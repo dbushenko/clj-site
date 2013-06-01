@@ -84,10 +84,14 @@
       ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
       [:div
        {:class "main-post"}
-       (page-content)
-       ]
-       
-       ]]]
+       (page-content)]
+
+      [:iframe {:src (url-for "paginated.html"),
+                :seamless "seamless",
+                :height "200px",
+                :frameBorder "0"}]
+      ]]]
+
    [:footer
     {:class "page-footer"}
     [:section
