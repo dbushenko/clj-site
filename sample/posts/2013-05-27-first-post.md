@@ -1,5 +1,4 @@
 #title: My first post
-#layout: default
 #tags: tag1
 
 

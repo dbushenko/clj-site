@@ -13,9 +13,6 @@
 
 (declare parse-data-file)
 
-(defn- index-of [e coll]
-  (first (keep-indexed #(if (= e %2) %1) coll)))
-
 (defn- add-separator [name]
   (if (= (last name) *separator*)
     name
@@ -23,7 +20,7 @@
 
 (defn- make-html-file-name [file-name & [num]]
   "Creates html-file name from the markdown file name"
-  (let [n (if (or (nil? num) (zero? num)) "" (inc num))
+  (let [n (if (or (nil? num) (zero? num)) "" (str "-" (inc num)))
         fn (cond
             (.endsWith file-name ".md") (.substring file-name 0 (- (count file-name) 3))
             (.endsWith file-name ".clj") (.substring file-name 0 (- (count file-name) 4))
@@ -62,6 +59,7 @@
 (def ^:dynamic *current-file-name*)
 
 (defn parse-header-line [line]
+  "Parses metainformation from the header of the mardown file"
   (if (or (< (.length line) 4)
           (not (.startsWith line "#"))
           (= (.indexOf line ":") -1))
@@ -73,6 +71,7 @@
     (vector (keyword header) content)))
 
 (defn parse-file-content [raw-lines]
+  "Tries to split header and the content of the mardown file."
   (loop [lines raw-lines
          header []]
     (let [line (first lines)]
@@ -84,10 +83,12 @@
                (conj header (parse-header-line line)))))))
 
 (defn parse-tags [tags-string]
+  "Parses the tags line."
   (let [arr (.split tags-string " ")]
     (filter #(not (empty? %)) arr)))
 
 (defn parse-data-file [file]
+  "Parses a mardown file with the header containing metainformation."
   (binding [*current-file-name* (.getName file)]
     (println *current-file-name*)
     (let [parts (.split *current-file-name* "-")
@@ -97,42 +98,29 @@
           d (parse-file-content lines)
           data (if (nil? (:tags d))
                  d
-                 (assoc d :tags (parse-tags (:tags d))))
-          ]
+                 (assoc d :tags (parse-tags (:tags d))))]
       (-> data
           (assoc :file-name *current-file-name*)
           (assoc :html-file-name (make-html-file-name *current-file-name*))))))
 
 (defn generate-post [post cfg posts-list]
-  "Generates one post"
+  "Generates one post."
   (let [dir (:output-dir cfg)
         base-dir (:base-dir cfg)
         layouts-dir (:layouts-dir cfg)
         file-name (str base-dir dir (make-html-file-name (:file-name post)))
-        layout-name (:layout post)
+        layout-name (or (:layout post) (:post-layout cfg))
         layout (read-string (slurp (str base-dir layouts-dir layout-name ".clj")))
         eval-data (concat '(do (use 'clj-site.util)) (list layout))]
     (binding [*config* cfg
               *post* post
               *post-prev* (find-previous-post post posts-list)
-              *post-next* (find-next-post post posts-list)]
+              *post-next* (find-next-post post posts-list)
+              *posts-list* posts-list]
       (spit file-name (html (eval eval-data))))))
 
-
-(defn generate-page [page cfg pages-list]
-  "Generates page"
-  (let [dir (:output-dir cfg)
-        base-dir (:base-dir cfg)
-        layouts-dir (:layouts-dir cfg)
-        layout-name (:layout page)
-        layout (read-string (slurp (str base-dir layouts-dir layout-name ".clj")))
-        eval-data (concat '(do (use 'clj-site.util)) (list layout))]
-    (binding [*config* cfg
-              *page* page]
-      (spit (str base-dir dir (make-html-file-name (:file-name page)))
-            (html (eval eval-data))))))
-
 (defn generate-list [file-list-name layout-name cfg posts-list]
+  "Generates a paginated list of posts."
   (let [page-size (:page-size cfg)
         pages-count* (int (/ (count posts-list) page-size))
         pages-count (if (> (count posts-list) (* page-size pages-count*)) (inc pages-count*) pages-count*)
@@ -150,33 +138,38 @@
         (spit (str base-dir dir (make-html-file-name file-list-name page-num))
               (html (eval eval-data)))))))
 
-(defn generate-post-list [cfg posts-list]
-  (generate-list (:paginated-layout cfg) (:paginated-layout cfg) cfg posts-list))
 
 (defn get-all-tags [posts-list]
+  "Gets all tags list from the posts list. Doesn't contain duplicate tags."
   (vec
    (apply hash-set
           (flatten (reduce conj []
                            (map :tags posts-list))))))
 
 (defn generate-tags-list [cfg posts-list]
-  (let [tags (get-all-tags posts-list)]
-    (dorun (map (fn [tag] (generate-list tag (:tags-layout cfg) cfg
-                                         (filter #(not (nil? (index-of tag (:tags %))))
-                                                 posts-list)))
-                tags))))
+  "Generates a list of posts for each tag."
+  (binding [*posts-list* posts-list]
+    (let [tags (get-all-tags posts-list)]
+      (dorun (map (fn [tag]
+                    (generate-list tag
+                                   (or (get cfg (keyword tag))
+                                       (:tags-layout cfg))
+                                   cfg
+                                   (filter #(not (nil? (index-of tag (:tags %))))
+                                           posts-list)))
+                  tags)))))
 
 (defn make-config [cfg dir-name]
   "Makes default config, applies user settings from file config.clj"
-  {:url-base (or (:url-base cfg) "/")
-   :page-size (or (:page-size cfg) 5)
-   :posts-dir (add-separator (or (:posts-dir cfg) "posts"))
-   :pages-dir (add-separator (or (:pages-dir cfg) "pages"))
-   :layouts-dir (add-separator (or (:layouts-dir cfg) "layouts"))
-   :output-dir (add-separator (or (:output-dir cfg) "output"))
-   :base-dir dir-name
-   :paginated-layout (or (:paginated-layout cfg) "paginated")
-   :tags-layout (or (:tags-layout cfg) "tags")})
+  (-> cfg
+      (assoc :url-base (or (:url-base cfg) "/"))
+      (assoc :page-size (or (:page-size cfg) 5))
+      (assoc :posts-dir (add-separator (or (:posts-dir cfg) "posts")))
+      (assoc :layouts-dir (add-separator (or (:layouts-dir cfg) "layouts")))
+      (assoc :output-dir (add-separator (or (:output-dir cfg) "output")))
+      (assoc :base-dir dir-name)
+      (assoc :tags-layout (or (:tags-layout cfg) "tags"))
+      (assoc :post-layout (or (:tags-layout cfg) "post"))))
 
 (defn -main [ & [input-dir-name]]
   (if (nil? input-dir-name)
@@ -189,13 +182,7 @@
                   (make-config dir-name))
 
           posts-files (find-data-files cfg dir-name :posts-dir)
-          posts-list (parse-data-files-list posts-files)
-          
-          pages-files (find-data-files cfg dir-name :pages-dir)
-          pages-list (parse-data-files-list pages-files)
-          ]
+          posts-list (parse-data-files-list posts-files)]
 
-      (dorun (map #(generate-page % cfg pages-list) pages-list))
       (dorun (map #(generate-post % cfg posts-list) posts-list))
-      (generate-post-list cfg posts-list)
       (generate-tags-list cfg posts-list))))

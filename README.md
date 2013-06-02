@@ -1,13 +1,13 @@
 # clj-site
 
-A Clojure for compiling static sites
+A Clojure application for compiling static sites
 
 ## Usage
 
 Examples see in the "sample" dir.
 
-	     $ lein uberjar
-		 $ java -jar target/clj-site-SNAPSHOT-standalone.jar sample/
+	 $ lein uberjar
+	 $ java -jar target/clj-site-SNAPSHOT-standalone.jar sample/
 		 
 Then open sample/index.html in your browser.
 

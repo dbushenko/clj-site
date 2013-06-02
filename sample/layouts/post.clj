@@ -85,9 +85,8 @@
       [:div
        {:class "main-post"}
        (post-content)]
-
-      ]]]
-
+       
+       ]]]
    [:footer
     {:class "page-footer"}
     [:section

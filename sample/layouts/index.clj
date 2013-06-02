@@ -73,6 +73,11 @@
     [:section
 
      {:id "content"}
+      ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+      ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+     (post-content)
+
      [:div
       {:class "feed"}
       [:div
@@ -80,15 +85,14 @@
        "\n\t      ЛЕНТА\n\t      "
        [:div {:class "line"}]]
 
-      ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-      ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
       [:div
        {:class "main-post"}
-       (page-content)]
+       (:contents (first (posts-with-tag "tag1")))]
 
-      [:iframe {:src (url-for "paginated.html"),
+      [:iframe {:src (url-for "tag1.html"),
                 :seamless "seamless",
-                :height "200px",
+                :width "520px",
+                ;; :height "200px",
                 :frameBorder "0"}]
       ]]]
 
