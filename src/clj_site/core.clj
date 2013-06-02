@@ -169,7 +169,7 @@
       (assoc :output-dir (add-separator (or (:output-dir cfg) "output")))
       (assoc :base-dir dir-name)
       (assoc :tags-layout (or (:tags-layout cfg) "tags"))
-      (assoc :post-layout (or (:tags-layout cfg) "post"))))
+      (assoc :post-layout (or (:post-layout cfg) "post"))))
 
 (defn -main [ & [input-dir-name]]
   (if (nil? input-dir-name)

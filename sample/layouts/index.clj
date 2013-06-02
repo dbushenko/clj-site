@@ -42,33 +42,38 @@
      [:div
       {:class "past-meetups"}
       [:h3 {:align "center", :class "pm-header"} "Прошедшие встречи"]
-      [:div
-       {:class "past-meetup clearfix"}
-       [:div {:class "past-meetup-number"} "#10"]
-       [:div
-        {:class "past-meetup-info"}
-        [:p {} "24/11/2012"]
-        [:p
-         {}
-         [:a
-          {:shape "rect",
-           :class "wlink pm-media",
-           :href (url-for "index.html")}
-          "Медиа"]]
-        [:p
-         {}
-         [:a
-          {:shape "rect",
-           :class "wlink pm-discuss",
-           :href
-           (url-for "index.html")}
-          "Обсуждения"]]]]
+
+      [:div {:align "center"} "Пока у нас не было ни одной встречи. Но скоро будут."]
+      
+      ;; [:div
+      ;;  {:class "past-meetup clearfix"}
+      ;;  [:div {:class "past-meetup-number"} "#10"]
+      ;;  [:div
+      ;;   {:class "past-meetup-info"}
+      ;;   [:p {} "24/11/2012"]
+      ;;   [:p
+      ;;    {}
+      ;;    [:a
+      ;;     {:shape "rect",
+      ;;      :class "wlink pm-media",
+      ;;      :href (url-for "index.html")}
+      ;;     "Медиа"]]
+      ;;   [:p
+      ;;    {}
+      ;;    [:a
+      ;;     {:shape "rect",
+      ;;      :class "wlink pm-discuss",
+      ;;      :href
+      ;;      (url-for "index.html")}
+      ;;     "Обсуждения"]]]]
+
+      
       [:div
        {:class "past-meetup-more"}
        [:a
         {:shape "rect",
          :class "past-meetup-more-link",
-         :href (url-for "index.html")}
+         :href (url-for "meetup.html")}
         "Больше..."]]]]
     [:section
 
@@ -87,14 +92,26 @@
 
       [:div
        {:class "main-post"}
-       (:contents (first (posts-with-tag "tag1")))]
+       (:contents (first (posts-with-tag "news")))]
 
-      [:iframe {:src (url-for "tag1.html"),
+      [:iframe {:src (url-for "news.html"),
                 :seamless "seamless",
                 :width "520px",
                 ;; :height "200px",
                 :frameBorder "0"}]
-      ]]]
+      ]
+
+     [:div
+      {:class "feed"}
+      [:div
+       {:class "info-header"}
+       "\n\t      ЧТО ТАКОЕ CLOJURE?\n\t      "
+       [:div {:class "line"}]]
+
+      "Clojure (произносится как closure) — современный диалект Лиспа. Это язык программирования общего назначения с поддержкой разработки в интерактивном режиме, поощряющий функциональное программирование, и упрощающий поддержку многопоточности. Clojure работает на платформах JVM, JavaScript и CLR. Clojure отличает философия «код как данные» и развитая система лисп-макросов."
+      
+      ]
+     ]]
 
    [:footer
     {:class "page-footer"}

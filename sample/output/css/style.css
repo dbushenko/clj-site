@@ -33,7 +33,7 @@ audio:not([controls]) { display: none; }
 
 html { font-size: 100%; overflow-y: scroll; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
 
-body { margin: 0; font-size: 13px; line-height: 1.231; }
+body { margin: 0; font-size: 14px; line-height: 1.231; }
 
 body, button, input, select, textarea { font-family: 'PT Serif Caption', sans-serif; color: #222; }
 
@@ -250,7 +250,7 @@ a:hover {
     float: right; }
 .page-nav {
     width: 220px;
-    margin-top: 13px; }
+    margin-top: 14px; }
 .page-nav-link {
     display: block;
     float: left;
@@ -337,7 +337,7 @@ a:hover {
     color: #039; }
 
 .twitter {
-    font-size: 13px;
+    font-size: 14px;
     margin-top: 40px;
     -moz-border-radius: 15px;
     border-radius: 15px;
@@ -349,7 +349,7 @@ a:hover {
     padding-top: 20px; }
 
 .facebook, .friends {
-    font-size: 13px;
+    font-size: 14px;
     margin-top: 40px;
     -moz-border-radius: 15px;
     border-radius: 15px;
@@ -497,6 +497,21 @@ a:hover {
     font-size: 17px;
     float: right; }
 
+.feed-header {
+    background-image: url("../img/satellite_ground_32.png");
+    background-position: 0 4px;
+    background-repeat: no-repeat;
+    font-size: 25px;
+    padding-left: 40px;
+}
+
+.info-header {
+    background-image: url("../img/information_32.png");
+    background-position: 0 4px;
+    background-repeat: no-repeat;
+    font-size: 25px;
+    padding-left: 40px;
+}
 .line {
     width: 100%;
     border-top-style: solid;
@@ -550,7 +565,7 @@ div.dsq-trackback-url {
     margin-top: -20px;
     padding-left: 300px;
     color: #b40010;
-    font-size: 13px; }
+    font-size: 14px; }
 .disqus-link:hover {
     color: #06e; }
 

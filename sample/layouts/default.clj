@@ -42,37 +42,43 @@
      [:div
       {:class "past-meetups"}
       [:h3 {:align "center", :class "pm-header"} "Прошедшие встречи"]
-      [:div
-       {:class "past-meetup clearfix"}
-       [:div {:class "past-meetup-number"} "#10"]
-       [:div
-        {:class "past-meetup-info"}
-        [:p {} "24/11/2012"]
-        [:p
-         {}
-         [:a
-          {:shape "rect",
-           :class "wlink pm-media",
-           :href (url-for "index.html")}
-          "Медиа"]]
-        [:p
-         {}
-         [:a
-          {:shape "rect",
-           :class "wlink pm-discuss",
-           :href
-           (url-for "index.html")}
-          "Обсуждения"]]]]
+
+      [:div {:align "center"} "Пока у нас не было ни одной встречи. Но скоро будут."]
+      
+      ;; [:div
+      ;;  {:class "past-meetup clearfix"}
+      ;;  [:div {:class "past-meetup-number"} "#10"]
+      ;;  [:div
+      ;;   {:class "past-meetup-info"}
+      ;;   [:p {} "24/11/2012"]
+      ;;   [:p
+      ;;    {}
+      ;;    [:a
+      ;;     {:shape "rect",
+      ;;      :class "wlink pm-media",
+      ;;      :href (url-for "index.html")}
+      ;;     "Медиа"]]
+      ;;   [:p
+      ;;    {}
+      ;;    [:a
+      ;;     {:shape "rect",
+      ;;      :class "wlink pm-discuss",
+      ;;      :href
+      ;;      (url-for "index.html")}
+      ;;     "Обсуждения"]]]]
+
+      
       [:div
        {:class "past-meetup-more"}
        [:a
         {:shape "rect",
          :class "past-meetup-more-link",
-         :href (url-for "index.html")}
+         :href (url-for "meetup.html")}
         "Больше..."]]]]
     [:section
 
      {:id "content"}
+
      [:div
       {:class "feed"}
       [:div
@@ -82,9 +88,23 @@
 
       ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
       ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-      [:div
-       {:class "main-post"}
-       (post-content)]
+
+      (post-content)
+
+          "<div id=\"disqus_thread\"></div>
+    <script type=\"text/javascript\">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'clojureby'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href=\"http://disqus.com/?ref_noscript\">comments powered by Disqus.</a></noscript>
+    <a href=\"http://disqus.com\" class=\"dsq-brlink\">comments powered by <span class=\"logo-disqus\">Disqus</span></a>"
 
       ]]]
 
@@ -104,4 +124,7 @@
      [:p {} "Some rights reserved (c)."]]]
 
    [:script {:src "https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"}]
-   ]]]
+   ]
+    
+  
+  ]]

@@ -1,4 +1,4 @@
 #layout: index
 #tags: main
 
-Index content
+Это сайт русскоязычного сообщества любителей языка Clojure и Lisp-ов в общем. Прочтите [манифест лиспера](manifest.html) и присоединяйтесь к нам!
