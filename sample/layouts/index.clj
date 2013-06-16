@@ -94,11 +94,8 @@
        {:class "main-post"}
        (:contents (first (posts-with-tag "news")))]
 
-      [:iframe {:src (url-for "news.html"),
-                :seamless "seamless",
-                :width "520px",
-                ;; :height "200px",
-                :frameBorder "0"}]
+      (inner-page "news.html"
+                  {:width "520px"})
       ]
 
      [:div
