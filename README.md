@@ -44,7 +44,6 @@ Posts are written in markdown format and have extra headers. A header is a set o
     #tags: news
     #date: 02-06-2013
 
-
 Each header line starts with '#' and ends with ':', after the colon symbol goes the value. Everything which is written in headers goes to the object 'post'. Header 'title' is required for each post.
 
 ### Tags layout
