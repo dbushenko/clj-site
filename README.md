@@ -15,13 +15,13 @@ Then open sample/index.html in your browser.
 
 The input data directory should contain file "config.clj" which is a usual clojure file which returns the map of parameters. The following parameters are available:
 
-:url-base -- base url (default -- "/")
-:page-size -- posts per page (default -- 5)
-:posts-dir -- directory where posts in the markdown format are stored (default -- "posts")
-:layouts-dir -- the directory with layouts (default -- "layouts")
-:output-dir --  the directory where to store the generated files (default -- "output")
-:tags-layout -- the default layout name for all tags (default -- "tags")
-:post-layout -- the default layout name for all posts (default -- "post")
+`:url-base` -- base url (default -- "/")  
+`:page-size` -- posts per page (default -- 5)  
+`:posts-dir` -- directory where posts in the markdown format are stored (default -- "posts")  
+`:layouts-dir` -- the directory with layouts (default -- "layouts")  
+`:output-dir` --  the directory where to store the generated files (default -- "output")  
+`:tags-layout` -- the default layout name for all tags (default -- "tags")  
+`:post-layout` -- the default layout name for all posts (default -- "post")  
 
 Also you may add any tag name and specify layout name for each tag.
 
@@ -31,9 +31,10 @@ The layouts dir contains clojure files in hiccup format. The posts dir contains 
 
 Use function "post-content" to insert the content of a specific post.
 If you need to insert another page (e.g. list of posts for a specific task) use the "inner-page" function.
-
-    (inner-page "news.html"
-                {:width "520px"})
+```clojure
+(inner-page "news.html"
+            {:width "520px"})
+```
 
 ### Posts
 
