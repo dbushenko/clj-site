@@ -1,0 +1,1 @@
+([:dependencies ([marginalia "0.7.1"] [org.clojure/clojure "1.5.1"] [hiccup/hiccup "1.0.3"] [markdown-clj/markdown-clj "0.9.25"] [clj-rss/clj-rss "0.1.3"])])
