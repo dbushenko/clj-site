@@ -21,10 +21,10 @@ The input data directory should contain file "config.clj" which is a usual cloju
 `:layouts-dir` -- the directory with layouts (default -- "layouts")  
 `:output-dir` --  the directory where to store the generated files (default -- "output")  
 `:tags-layout` -- the default layout name for all tags (default -- "tags")  
-`:post-layout` -- the default layout name for all posts (default -- "post")
-`:rss-title` -- the title of the RSS channel
-`:rss-link` -- the linkt to the RSS channel
-`:rss-description` -- the description of the RSS channel
+`:post-layout` -- the default layout name for all posts (default -- "post")  
+`:rss-title` -- the title of the RSS channel  
+`:rss-link` -- the linkt to the RSS channel  
+`:rss-description` -- the description of the RSS channel  
 
 Also you may add any tag name and specify layout name for each tag.
 
