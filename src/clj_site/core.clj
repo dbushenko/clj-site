@@ -320,7 +320,7 @@
         data (conj prepared {:title (:rss-title cfg)
                              :link (:rss-link cfg)
                              :description (:rss-description cfg)})]
-    (spit (str (:base-dir cfg) "rss.xml") (apply rss/channel-xml data))))
+    (spit (str (:base-dir cfg) (:output-dir cfg) "rss.xml") (apply rss/channel-xml data))))
 
 
 ;; <strong>make-config</strong> creates global configuration object. It merges the options from the configuration file
