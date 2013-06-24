@@ -162,7 +162,8 @@
       (if (or (empty? lines)
               (not (.startsWith line "#")))
         (let [h (apply hash-map (flatten header))]
-          (assoc h :contents (md-to-html-string (reduce #(str %1 %2 "\n") lines))))
+          (assoc h :contents (md-to-html-string (reduce #(str %1 %2 "\n") lines)
+                                                :code-style #(format "class=\"code\" data-lang=\"%s\"" %))))
         (recur (next lines)
                (conj header (parse-header-line line)))))))
 
