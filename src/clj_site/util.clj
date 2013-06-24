@@ -39,6 +39,14 @@
 ;; Available only while generating post.
 (defn post-content [] (:contents *post*))
 
+;; Returns the title of the current post.
+;; Available only while generating post.
+(defn post-title [] (:title *post*))
+
+;; Returns the html file name for the current post.
+;; Available only while generating post.
+(defn post-html [] (:html-file-name *post*))
+
 ;; The name of the previous post in the common posts list.
 ;; Available only while generating post.
 (defn post-prev [] *post-prev*)
