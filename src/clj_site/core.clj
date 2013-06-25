@@ -293,8 +293,10 @@
                                    (or (get cfg (keyword tag))  ;; first try to get the layout name for this tag from the configuration
                                        (:tags-layout cfg))      ;; if no layout specified for this tag -- use the default layout for all tags
                                    cfg
-                                   (filter #(not (nil? (index-of tag (:tags %)))) ;; finds only those posts which contain current tag
-                                           posts-list)))
+                                   (reverse
+                                    (sort-by :file-name
+                                             (filter #(not (nil? (index-of tag (:tags %)))) ;; finds only those posts which contain current tag
+                                                     posts-list)))))
                   tags)))))
 
 
@@ -309,9 +311,9 @@
 ;; <i>Output:</i> nothing but the file rss.xml.
 (defn generate-rss [cfg posts-list]
   (let [dated-posts (->> (filter #(not (nil? (:date %))) posts-list)
-                        (sort-by :date)
-                        reverse
-                        (take (:rss-count cfg)))
+                         (sort-by :date)
+                         reverse
+                         (take (:rss-count cfg)))
         prepared (doall (map #(apply hash-map [:title (:title %),
                                                :link (url-for (:html-file-name %))
                                                :description (:contents %)
