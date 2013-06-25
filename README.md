@@ -24,7 +24,8 @@ The input data directory should contain file "config.clj" which is a usual cloju
 `:post-layout` -- the default layout name for all posts (default -- "post")  
 `:rss-title` -- the title of the RSS channel  
 `:rss-link` -- the linkt to the RSS channel  
-`:rss-description` -- the description of the RSS channel  
+`:rss-description` -- the description of the RSS channel
+`:rss-count` -- number of items in the RSS channel  
 
 Also you may add any tag name and specify layout name for each tag.
 
