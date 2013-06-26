@@ -97,9 +97,10 @@
 ;; </ul>
 ;; <i>Output:</i> html <a> tag.
 (defn parent-link-for [name page-name]
-  [:a {:href "#",
-       :onclick (str "parent.document.location='" (url-for page-name) "'")}
-   name])
+  (let [url (url-for page-name)]
+    [:a {:href url,
+         :onclick (str "parent.document.location='" url "'")}
+     name]))
 
 ;; Generates the code to include the specified page into the current page.
 ;; Creates an iframe for it.
