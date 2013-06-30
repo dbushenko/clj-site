@@ -35,6 +35,10 @@
 ;; Returns global configuration.
 (defn config [] *config*)
 
+;; Returns the current post.
+;; Available only while generating post.
+(defn current-post [] *post*)
+
 ;; Returns the content of the current post without the header.
 ;; Available only while generating post.
 (defn post-content [] (:contents *post*))
