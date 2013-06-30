@@ -1,6 +1,6 @@
 (ns clj-site.util
   (:gen-class))
-
+ 
 (def ^:dynamic *config*)
 
 (def ^:dynamic *post*)
