@@ -1,4 +1,4 @@
-(defproject clj-site "1.1"
+(defproject clj-site "1.1.1"
   :description "Static sites generator"
   :url "http://github.com/dbushenko/clj-site"
   :license {:name "Eclipse Public License"

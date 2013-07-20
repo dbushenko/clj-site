@@ -315,7 +315,7 @@
                          reverse
                          (take (:rss-count cfg)))
         prepared (doall (map #(apply hash-map [:title (:title %),
-                                               :link (url-for (:html-file-name %))
+                                               :link (url-for (str (:url-base cfg) (:html-file-name %)))
                                                :description (:contents %)
                                                :pubDate (or (try-parse-date (:date %)) (java.util.Date.))])
                              dated-posts))
