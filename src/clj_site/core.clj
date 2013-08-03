@@ -238,7 +238,8 @@
 ;; </ul>
 ;; <i>Output:</i> None.
 (defn generate-list [file-list-name layout-name cfg posts-list]
-  (let [page-size (:page-size cfg)                          ;; posts per page
+  (let [page-size (or ((keyword (str file-list-name "-size")) cfg)  ;; try to get posts per page for a specific tag
+                      (:page-size cfg))                             ;; posts per page (default number)
         pages-count* (int (/ (count posts-list) page-size))
         pages-count (if (> (count posts-list)               ;; number of resulting html files
                            (* page-size pages-count*))
